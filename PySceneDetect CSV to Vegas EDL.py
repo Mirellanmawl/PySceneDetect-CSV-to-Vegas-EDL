@@ -88,7 +88,7 @@ class command_line_arguments():  # Parses command-line arguments
         action='store')  # Add command-line argument for locating CSV file.
     parser.add_argument(
         '-o', '--outfile',
-        help='Name of the Vegas EDL text file. Default: [INFILE].txt.',
+        help='Name of the Vegas EDL text file. Default: \"[INFILE].txt.\"',
         action='store')  # Add command-line argument for
     # naming the Vegas EDL text file.
 
