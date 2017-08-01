@@ -84,11 +84,11 @@ class command_line_arguments():  # Parses command-line arguments
         'VIDEO_FILE', help='Video file that you used PySceneDetect on.',
         action='store')  # Add command-line argument for locating video file.
     parser.add_argument(
-        'INFILE', help='CSV file to convert.',
+        'INFILE', help='CSV file to convert (will not be touched).',
         action='store')  # Add command-line argument for locating CSV file.
     parser.add_argument(
-        'OUTFILE',
-        help='Name of the Vegas EDL text file.',
+        '-o', '--outfile',
+        help='Name of the Vegas EDL text file. Default: [INFILE].txt.',
         action='store')  # Add command-line argument for
     # naming the Vegas EDL text file.
 
@@ -97,11 +97,16 @@ class command_line_arguments():  # Parses command-line arguments
     global videof
     global infile
     global outfile
-    videof = os.path.abspath(args.VIDEO_FILE)
-    infile = args.INFILE
-    outfile = args.OUTFILE
-    if not outfile.endswith('.txt'):
-        outfile = '{}.txt'.format(outfile)
+    videof = os.path.abspath(
+        args.VIDEO_FILE)  # Assign variable from command-line argument value
+    infile = args.INFILE  # Assign variable from command-line argument value
+    outfile = args.outfile  # Assign variable from command-line argument value
+    if outfile is None:  # If outfile is not passed...
+        outfile = infile.replace('.csv', '.txt')  # Assign outfile the
+        # value of infile and change extension.
+    if not outfile.endswith(
+            '.txt'):  # If outfile does not have the extension ".txt".
+        outfile = '{}.txt'.format(outfile)  # Add TXT file extension.
 
 
 class Main():
@@ -110,7 +115,7 @@ class Main():
     decimal.getcontext().rounding = decimal.ROUND_DOWN
     clips = seconds_to_milliseconds(clips)
     edl(outfile, clips, videof)
-    #print(
+    print('\n--> {}'.format(os.path.abspath(outfile)))
 
 
 if __name__ == '__main__':
