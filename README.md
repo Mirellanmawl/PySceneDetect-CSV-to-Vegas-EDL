@@ -7,21 +7,21 @@ This is a Python 3 script that reads a comma-separated values (CSV) file generat
 Useful for when editing already-cut material such as archive footage, fan editing, Anime Music Video (AMV) making, or removing commercial breaks from TV broadcast footage, amongst other things.
 
 # Usage
-PySceneDetect CSV to Vegas EDL.py [-h] VIDEO_FILE INFILE OUTFILE
+PySceneDetect CSV to Vegas EDL.py [-h] [-o OUTFILE] VIDEO_FILE INFILE
 
 
 positional arguments:
 
 VIDEO_FILE: Video file that you used PySceneDetect on.
 
-INFILE: CSV file to convert.
-
-OUTFILE: Name of the Vegas EDL text file.
+INFILE: CSV file to convert (will not be touched).
 
 
 optional arguments:
 
 -h, --help: show this help message and exit
+
+-o OUTFILE, --outfile OUTFILE: Name of the Vegas EDL text file. Default: [INFILE].txt.
 
 
 This was created with Python 3.6.1 (v3.6.1:69c0db5, Mar 21 2017, 18:41:36) [MSC v.1900 64 bit (AMD64)] on win32 with Emacs and Elpy.
