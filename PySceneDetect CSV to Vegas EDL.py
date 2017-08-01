@@ -49,7 +49,13 @@ def seconds_to_milliseconds(clips):  # Convert clip starting points and
 
 def edl(outfile, clips, videof):  # Creates Vegas EDL file from clips list.
     f = open(outfile, 'w')
-    f.write('"ID";"Track";"StartTime";"Length";"PlayRate";"Locked";"Normalized";"StretchMethod";"Looped";"OnRuler";"MediaType";"FileName";"Stream";"StreamStart";"StreamLength";"FadeTimeIn";"FadeTimeOut";"SustainGain";"CurveIn";"GainIn";"CurveOut";"GainOut";"Layer";"Color";"CurveInR";"CurveOutR":"PlayPitch";"LockPitch"\n')
+    f.write('"ID";"Track";"StartTime";"Length";"PlayRate";'
+            '"Locked";"Normalized";"StretchMethod";"Looped";'
+            '"OnRuler";"MediaType";"FileName";"Stream";'
+            '"StreamStart";"StreamLength";"FadeTimeIn";'
+            '"FadeTimeOut";"SustainGain";"CurveIn";"GainIn";'
+            '"CurveOut";"GainOut";"Layer";"Color";"CurveInR";'
+            '"CurveOutR":"PlayPitch";"LockPitch"\n')
     for clip in clips:  # For every clip clip
         f.write(
             '%s;    1;    %s;    %s;    1.000000;    FALSE;    FALSE;    '
@@ -73,6 +79,7 @@ def edl(outfile, clips, videof):  # Creates Vegas EDL file from clips list.
 class command_line_arguments():  # Parses command-line arguments
     parser = argparse.ArgumentParser(
         description='Convert PySceneDetect CSV files to Vegas EDL files.')
+
     parser.add_argument(
         'VIDEO_FILE', help='Video file that you used PySceneDetect on.',
         action='store')  # Add command-line argument for locating video file.
@@ -84,6 +91,7 @@ class command_line_arguments():  # Parses command-line arguments
         help='Name of the Vegas EDL text file.',
         action='store')  # Add command-line argument for
     # naming the Vegas EDL text file.
+
     args = parser.parse_args()
 
     global videof
@@ -92,12 +100,18 @@ class command_line_arguments():  # Parses command-line arguments
     videof = os.path.abspath(args.VIDEO_FILE)
     infile = args.INFILE
     outfile = args.OUTFILE
+    if not outfile.endswith('.txt'):
+        outfile = '{}.txt'.format(outfile)
+
+
+class Main():
+    command_line_arguments()
+    clips = get_clips(infile)
+    decimal.getcontext().rounding = decimal.ROUND_DOWN
+    clips = seconds_to_milliseconds(clips)
+    edl(outfile, clips, videof)
+    #print(
 
 
 if __name__ == '__main__':
-    command_line_arguments()
-
-clips = get_clips(infile)
-decimal.getcontext().rounding = decimal.ROUND_DOWN
-clips = seconds_to_milliseconds(clips)
-edl(outfile, clips, videof)
+    Main()
