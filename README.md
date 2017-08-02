@@ -21,7 +21,7 @@ optional arguments:
 
 -h, --help: show this help message and exit
 
--o OUTFILE, --outfile OUTFILE: Name of the Vegas EDL text file. Default: [INFILE].txt.
+-o OUTFILE, --outfile OUTFILE: Name of the Vegas EDL text file. Default: "[INFILE].txt".
 
 
 This was created with Python 3.6.1 (v3.6.1:69c0db5, Mar 21 2017, 18:41:36) [MSC v.1900 64 bit (AMD64)] on win32 with Emacs and Elpy.
